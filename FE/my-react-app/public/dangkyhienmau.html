@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Hiến Máu - BloodLife</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e53935;
+            --secondary-color: #ff6b6b;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .registration-form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .date-range {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .date-range input {
+            flex: 1;
+        }
+
+        .time-slots {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .time-slot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:last-child {
+            border-bottom: none;
+        }
+
+        .time-slot:hover {
+            background: #f5f5f5;
+        }
+
+        .time-slot-info {
+            flex: 1;
+        }
+
+        .slot-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slot-available {
+            color: #4caf50;
+            font-weight: 600;
+        }
+
+        .register-btn {
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .register-btn:hover {
+            background: #d32f2f;
+        }
+
+        .requirements {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+
+        .requirements h3 {
+            color: #f57c00;
+            margin-top: 0;
+        }
+
+        .requirements ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .date-range {
+                flex-direction: column;
+            }
+            
+            .time-slot {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .slot-status {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heart-pulse"></i>
+                <span>BloodLife</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <form class="registration-form">
+            <div class="form-header">
+                <h1>Đăng Ký Hiến Máu</h1>
+                <p>Hãy chọn thời gian và địa điểm phù hợp với bạn</p>
+            </div>
+
+            <div class="form-section">
+                <div class="form-group">
+                    <label>Khoảng thời gian muốn hiến máu:</label>
+                    <div class="date-range">
+                        <input type="date" id="start-date" required>
+                        <span>đến</span>
+                        <input type="date" id="end-date" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Chọn địa điểm hiến máu:</label>
+                    <select id="location" required>
+                        <option value="">-- Chọn địa điểm --</option>
+                        <option value="bvcr">Bệnh viện Chợ Rẫy</option>
+                        <option value="vhh">Viện Huyết học - Truyền máu TW</option>
+                        <option value="bvtn">Bệnh viện Thống Nhất</option>
+                        <option value="tthmtn">Trung tâm Hiến máu Nhân đạo</option>
+                    </select>
+                </div>
+
+                <h3>Các ca hiến máu có sẵn:</h3>
+                <div class="time-slots">
+                    <div class="time-slot">
+                        <div class="time-slot-info">
+                            <strong>Thứ 2, 20/03/2024</strong>
+                            <p>Ca sáng: 8:00 - 11:00</p>
+                            <p>Địa điểm: Bệnh viện Chợ Rẫy - 201B Nguyễn Chí Thanh</p>
+                        </div>
+                        <div class="slot-status">
+                            <span class="slot-available">Còn 5 slot trống</span>
+                            <button type="button" class="register-btn">Đăng ký</button>
+                        </div>
+                    </div>
+
+                    <div class="time-slot">
+                        <div class="time-slot-info">
+                            <strong>Thứ 3, 21/03/2024</strong>
+                            <p>Ca chiều: 13:30 - 16:30</p>
+                            <p>Địa điểm: Viện Huyết học - 118 Hồng Bàng</p>
+                        </div>
+                        <div class="slot-status">
+                            <span class="slot-available">Còn 8 slot trống</span>
+                            <button type="button" class="register-btn">Đăng ký</button>
+                        </div>
+                    </div>
+
+                    <div class="time-slot">
+                        <div class="time-slot-info">
+                            <strong>Thứ 4, 22/03/2024</strong>
+                            <p>Ca sáng: 8:00 - 11:00</p>
+                            <p>Địa điểm: Bệnh viện Thống Nhất - 1 Lý Thường Kiệt</p>
+                        </div>
+                        <div class="slot-status">
+                            <span class="slot-available">Còn 3 slot trống</span>
+                            <button type="button" class="register-btn">Đăng ký</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="requirements">
+                <h3>Điều kiện hiến máu:</h3>
+                <ul>
+                    <li>Tuổi từ 18-60</li>
+                    <li>Cân nặng nam ≥ 45kg, nữ ≥ 42kg</li>
+                    <li>Không mắc các bệnh mãn tính</li>
+                    <li>Không trong thời gian điều trị bệnh</li>
+                    <li>Không có các hành vi nguy cơ lây nhiễm HIV</li>
+                    <li>Thời gian giữa 2 lần hiến máu tối thiểu 12 tuần</li>
+                </ul>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Thiết lập ngày tối thiểu là ngày hiện tại
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('start-date').min = today;
+        document.getElementById('end-date').min = today;
+
+        // Xử lý sự kiện khi chọn ngày bắt đầu
+        document.getElementById('start-date').addEventListener('change', function() {
+            document.getElementById('end-date').min = this.value;
+        });
+
+        // Xử lý sự kiện khi nhấn nút đăng ký
+        const registerButtons = document.querySelectorAll('.register-btn');
+        registerButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const timeSlot = this.closest('.time-slot');
+                const timeInfo = timeSlot.querySelector('.time-slot-info').textContent;
+                if (confirm(`Xác nhận đăng ký hiến máu:\n${timeInfo}`)) {
+                    alert('Đăng ký thành công! Chúng tôi sẽ liên hệ với bạn qua email để xác nhận.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
