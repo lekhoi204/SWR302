@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - BloodLife</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 120px auto 0;
+            padding: 32px 24px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .login-container h2 {
+            text-align: center;
+            color: #e53935;
+        }
+        .login-container label {
+            display: block;
+            margin-bottom: 6px;
+            margin-top: 16px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background: #e53935;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-top: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-container button:hover {
+            background: #b71c1c;
+        }
+        .login-container .register-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #e53935;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <a href="index.html" style="display:inline-block;margin-bottom:18px;color:#e53935;text-decoration:none;font-weight:bold;">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <h2>Đăng nhập</h2>
+        <form>
+            <label for="email">Email</label>
+            <input id="email" type="email" required placeholder="Nhập email" />
+            <label for="password">Mật khẩu</label>
+            <input id="password" type="password" required placeholder="Nhập mật khẩu" />
+            <button type="submit">Đăng nhập</button>
+        </form>
+        <a class="register-link" href="register.html">Chưa có tài khoản? Đăng ký</a>
+    </div>
+</body>
+</html>
