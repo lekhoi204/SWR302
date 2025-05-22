@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Tức Hiến Máu - BloodLife</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e53935;
+            --secondary-color: #ff6b6b;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo i {
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-button {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: #fff;
+            color: var(--primary-color);
+        }
+
+        .nav-button.primary {
+            background: #fff;
+            color: var(--primary-color);
+        }
+
+        .nav-button.primary:hover {
+            background: #f0f0f0;
+        }
+
+        .header {
+            margin-top: 80px;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(rgba(229, 57, 53, 0.05), rgba(229, 57, 53, 0.1));
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .main-content {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .sidebar {
+            flex: 1;
+            min-width: 250px;
+            margin-left: 30px;
+        }
+
+        .news-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .featured-article {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .featured-image {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .featured-content {
+            padding: 25px;
+        }
+
+        .featured-tag {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+
+        .featured-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .featured-excerpt {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .featured-meta {
+            display: flex;
+            align-items: center;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .featured-meta img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .article-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .article-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .article-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-tag {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+        }
+
+        .article-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .article-excerpt {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        .article-meta img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .sidebar-section {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-section h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            color: var(--primary-color);
+        }
+
+        .popular-posts .post {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .popular-posts .post:last-child {
+            margin-bottom: 0;
+        }
+
+        .popular-posts .post-thumb {
+            width: 70px;
+            height: 70px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .popular-posts .post-info h4 {
+            margin: 0 0 5px;
+            font-size: 0.95rem;
+        }
+
+        .popular-posts .post-info span {
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .tag:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .newsletter button {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            background: #c62828;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn.active, .page-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                margin-left: 0;
+                margin-top: 30px;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-heart-pulse"></i>
+                <span>BloodLife</span>
+            </div>
+            <div class="nav-links">
+                <a class="nav-button" href="index.html">Trang chủ</a>
+                <a class="nav-button" href="diemhienmau.html">Điểm hiến máu</a>
+                <a class="nav-button" href="tintuc.html" style="background: white; color: var(--primary-color);">Tin tức</a>
+                <a class="nav-button" href="appointments.html">Lịch hẹn</a>
+                <a class="nav-button primary" href="login.html">Đăng nhập</a>
+                <a class="nav-button" href="register.html">Đăng ký</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <h1>Tin Tức & Bài Viết</h1>
+        <p>Cập nhật thông tin mới nhất về hiến máu và những câu chuyện truyền cảm hứng</p>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="news-filter">
+                <button class="filter-btn active">Tất cả</button>
+                <button class="filter-btn">Tin tức</button>
+                <button class="filter-btn">Sự kiện</button>
+                <button class="filter-btn">Câu chuyện</button>
+                <button class="filter-btn">Sức khỏe</button>
+            </div>
+
+            <div class="featured-article">
+                <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1615461066841-6116e61058f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                <div class="featured-content">
+                    <span class="featured-tag">Sự kiện</span>
+                    <h2 class="featured-title">Ngày hội hiến máu tình nguyện năm 2024 - "Một giọt máu cho đi, một cuộc đời ở lại"</h2>
+                    <p class="featured-excerpt">Hưởng ứng "Ngày Toàn dân hiến máu tình nguyện" (7/4), Viện Huyết học - Truyền máu Trung ương phối hợp với Hội Chữ thập đỏ Việt Nam tổ chức ngày hội hiến máu trên toàn quốc. Đây là dịp để mọi người cùng chung tay góp sức vào công tác hiến máu cứu người, thể hiện tình người và tinh thần nhân đạo.</p>
+                    <div class="featured-meta">
+                        <img src="https://randomuser.me/api/portraits/women/11.jpg" alt="Author">
+                        <span>Bởi Nguyễn Thu Hà • 05/04/2024 • 15 phút đọc</span>
+                    </div>
+                    <a href="#" class="read-more">Đọc tiếp</a>
+                </div>
+            </div>
+
+            <h2>Bài Viết Mới Nhất</h2>
+            <div class="article-list">
+                <!-- Bài viết 1 -->
+                <div class="article-card">
+                    <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="article-content">
+                        <span class="article-tag">Sức khỏe</span>
+                        <h3 class="article-title">10 lợi ích sức khỏe bạn nhận được khi hiến máu định kỳ</h3>
+                        <p class="article-excerpt">Hiến máu không chỉ cứu sống người khác mà còn mang lại nhiều lợi ích sức khỏe cho chính người hiến. Từ giảm nguy cơ mắc bệnh tim mạch đến cải thiện lượng sắt trong cơ thể...</p>
+                        <div class="article-meta">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author">
+                            <span>Bởi BS. Trần Minh • 01/04/2024</span>
+                        </div>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- Bài viết 2 -->
+                <div class="article-card">
+                    <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1631815588090-d1bcbe9a8547?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="article-content">
+                        <span class="article-tag">Câu chuyện</span>
+                        <h3 class="article-title">Người đàn ông hiến máu 100 lần trong 30 năm - Câu chuyện về lòng nhân ái</h3>
+                        <p class="article-excerpt">Ông Nguyễn Văn Hùng, 58 tuổi tại Hà Nội, đã hiến máu 100 lần trong suốt 30 năm qua. Hành trình của ông đã truyền cảm hứng cho nhiều người và cứu sống hàng trăm bệnh nhân...</p>
+                        <div class="article-meta">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author">
+                            <span>Bởi Lê Hoàng • 28/03/2024</span>
+                        </div>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- Bài viết 3 -->
+                <div class="article-card">
+                    <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="article-content">
+                        <span class="article-tag">Tin tức</span>
+                        <h3 class="article-title">Nguồn máu dự trữ trên cả nước đang ở mức báo động</h3>
+                        <p class="article-excerpt">Theo thông tin từ Viện Huyết học - Truyền máu Trung ương, lượng máu dự trữ hiện chỉ đủ đáp ứng nhu cầu điều trị khoảng 3-4 ngày. Các đơn vị y tế kêu gọi người dân tham gia hiến máu...</p>
+                        <div class="article-meta">
+                            <img src="https://randomuser.me/api/portraits/women/26.jpg" alt="Author">
+                            <span>Bởi Phạm Thúy • 22/03/2024</span>
+                        </div>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- Bài viết 4 -->
+                <div class="article-card">
+                    <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="article-content">
+                        <span class="article-tag">Sự kiện</span>
+                        <h3 class="article-title">Chiến dịch "Hành trình đỏ" sẽ diễn ra tại 40 tỉnh thành trong tháng 6</h3>
+                        <p class="article-excerpt">Chiến dịch vận động hiến máu "Hành trình đỏ" năm 2024 sẽ được tổ chức ở quy mô lớn hơn, dự kiến thu về khoảng 100.000 đơn vị máu để phục vụ điều trị trong mùa hè...</p>
+                        <div class="article-meta">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Author">
+                            <span>Bởi Trần Nam • 20/03/2024</span>
+                        </div>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- Bài viết 5 -->
+                <div class="article-card">
+                    <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="article-content">
+                        <span class="article-tag">Sức khỏe</span>
+                        <h3 class="article-title">Những điều cần biết trước khi hiến máu - Chuẩn bị như thế nào?</h3>
+                        <p class="article-excerpt">Để việc hiến máu diễn ra thuận lợi và đảm bảo sức khỏe, người hiến máu cần chuẩn bị những gì? Bài viết giải đáp các câu hỏi thường gặp và hướng dẫn chi tiết để có trải nghiệm hiến máu tốt nhất...</p>
+                        <div class="article-meta">
+                            <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="Author">
+                            <span>Bởi BS. Nguyễn Lan • 15/03/2024</span>
+                        </div>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+
+                <!-- Bài viết 6 -->
+                <div class="article-card">
+                    <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1553521041-d168abd31de3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="article-content">
+                        <span class="article-tag">Câu chuyện</span>
+                        <h3 class="article-title">Cuộc gặp gỡ đầy xúc động giữa người hiến máu và bệnh nhân được cứu sống</h3>
+                        <p class="article-excerpt">Sau 5 năm, chị Hồng - người đã hiến máu vào năm 2019, đã được gặp em bé Minh Anh - người đã được cứu sống nhờ đơn vị máu hiếm của chị. Câu chuyện cảm động về cuộc gặp gỡ đặc biệt...</p>
+                        <div class="article-meta">
+                            <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Author">
+                            <span>Bởi Đỗ Hùng • 10/03/2024</span>
+                        </div>
+                        <a href="#" class="read-more">Đọc tiếp</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <!-- Tìm kiếm -->
+            <div class="sidebar-section">
+                <h3>Tìm kiếm</h3>
+                <form>
+                    <input type="text" placeholder="Tìm kiếm bài viết..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </form>
+            </div>
+
+            <!-- Bài viết phổ biến -->
+            <div class="sidebar-section popular-posts">
+                <h3>Bài viết phổ biến</h3>
+                <div class="post">
+                    <div class="post-thumb" style="background-image: url('https://images.unsplash.com/photo-1615461066841-6116e61058f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="post-info">
+                        <h4>Ngày hội hiến máu tình nguyện năm 2024</h4>
+                        <span>05/04/2024</span>
+                    </div>
+                </div>
+                <div class="post">
+                    <div class="post-thumb" style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="post-info">
+                        <h4>10 lợi ích sức khỏe từ việc hiến máu</h4>
+                        <span>01/04/2024</span>
+                    </div>
+                </div>
+                <div class="post">
+                    <div class="post-thumb" style="background-image: url('https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');"></div>
+                    <div class="post-info">
+                        <h4>Những điều cần biết trước khi hiến máu</h4>
+                        <span>15/03/2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="sidebar-section">
+                <h3>Chủ đề</h3>
+                <div class="tag-cloud">
+                    <a href="#" class="tag">Hiến máu</a>
+                    <a href="#" class="tag">Sức khỏe</a>
+                    <a href="#" class="tag">Tình nguyện</a>
+                    <a href="#" class="tag">Sự kiện</a>
+                    <a href="#" class="tag">Hành trình đỏ</a>
+                    <a href="#" class="tag">Nhóm máu</a>
+                    <a href="#" class="tag">Tiểu cầu</a>
+                    <a href="#" class="tag">Huyết tương</a>
+                    <a href="#" class="tag">Cứu sống</a>
+                    <a href="#" class="tag">Bệnh viện</a>
+                </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="sidebar-section newsletter">
+                <h3>Đăng ký nhận tin</h3>
+                <p>Nhận thông báo về các sự kiện hiến máu sắp tới và tin tức mới nhất</p>
+                <form>
+                    <input type="email" placeholder="Email của bạn">
+                    <button type="submit">Đăng ký</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 BloodLife - Hệ thống quản lý hiến máu. Mọi quyền được bảo lưu.</p>
+    </footer>
+
+    <script>
+        // Xử lý chức năng lọc bài viết
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filterType = this.textContent.toLowerCase();
+                const cards = document.querySelectorAll('.article-card');
+                
+                if (filterType === 'tất cả') {
+                    cards.forEach(card => card.style.display = 'block');
+                } else {
+                    cards.forEach(card => {
+                        const tag = card.querySelector('.article-tag').textContent.toLowerCase();
+                        card.style.display = tag.includes(filterType) ? 'block' : 'none';
+                    });
+                }
+            });
+        });
+        
+        // Xử lý phân trang
+        document.querySelectorAll('.page-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.page-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                // Trong thực tế, có thể tải dữ liệu trang mới ở đây
+            });
+        });
+    </script>
+</body>
+</html>
