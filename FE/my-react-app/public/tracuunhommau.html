@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tra cứu nhóm máu có thể truyền vào</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e53935;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: var(--primary-color);
+            padding: 10px 0;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(229,57,53,0.07);
+            min-height: 60px; /* luôn giữ chiều cao tối thiểu */
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px; /* giống index.html */
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fff;
+            margin-right: 8px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-button {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background: #fff;
+            color: var(--primary-color);
+        }
+        .nav-button.primary {
+            background: #fff;
+            color: var(--primary-color);
+        }
+        .nav-button.primary:hover {
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 540px;
+            margin: 120px auto 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 32px 24px;
+            text-align: center;
+        }
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 24px;
+        }
+        .search-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        input[type="text"], select {
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        .result {
+            margin-top: 24px;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+        .blood-group {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 20px;
+            padding: 8px 18px;
+            margin: 6px 4px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .result-title {
+            font-weight: bold;
+            margin-top: 16px;
+        }
+        a.back-link {
+            display: inline-block;
+            margin-top: 32px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a.back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heart-pulse"></i>
+                <span>BloodLife</span>
+            </a>
+            <div class="nav-links">
+                <a class="nav-button" href="index.html">Trang chủ</a>
+                <a class="nav-button" href="tracuunhommau.html">Tra cứu nhóm máu</a>
+                <a class="nav-button" href="khancap.html">Khẩn cấp</a>
+                <a class="nav-button" href="#">Tin tức</a>
+                <a class="nav-button" href="appointments.html">Lịch hẹn</a>
+                <a class="nav-button primary" href="login.html">Đăng nhập</a>
+                <a class="nav-button" href="register.html">Đăng ký</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2><i class="fas fa-search"></i> Tra cứu nhóm máu có thể truyền vào</h2>
+        <div class="search-group">
+            <input type="text" id="bloodInput" placeholder="Nhập hoặc chọn nhóm máu..." autocomplete="off" list="bloodGroups">
+            <datalist id="bloodGroups">
+                <option value="O-">
+                <option value="O+">
+                <option value="A-">
+                <option value="A+">
+                <option value="B-">
+                <option value="B+">
+                <option value="AB-">
+                <option value="AB+">
+            </datalist>
+            <select id="componentSelect">
+                <option value="toanphan">Toàn phần</option>
+                <option value="hongcau">Hồng cầu</option>
+                <option value="huyettuong">Huyết tương</option>
+                <option value="tieucau">Tiểu cầu</option>
+            </select>
+            <button id="searchBtn" class="nav-button primary" style="margin-left:10px;"><i class="fas fa-search"></i> Tra cứu</button>
+        </div>
+        <div class="result" id="result"></div>
+        <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Quay về trang chủ</a>
+    </div>
+    <script>
+        // Nếu đã đăng nhập, có thể lấy nhóm máu người dùng từ backend hoặc localStorage
+        // Ví dụ: const userBloodGroup = "A+";
+        const userBloodGroup = null; // Đổi thành nhóm máu thực tế nếu có
+
+        const bloodCompatibility = {
+            "O-": {
+                "toanphan": ["O-"],
+                "hongcau": ["O-"],
+                "huyettuong": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],
+                "tieucau": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"]
+            },
+            "O+": {
+                "toanphan": ["O-", "O+"],
+                "hongcau": ["O-", "O+"],
+                "huyettuong": ["O+", "A+", "B+", "AB+"],
+                "tieucau": ["O+", "A+", "B+", "AB+"]
+            },
+            "A-": {
+                "toanphan": ["O-", "A-"],
+                "hongcau": ["O-", "A-"],
+                "huyettuong": ["A-", "A+", "AB-", "AB+"],
+                "tieucau": ["A-", "A+", "AB-", "AB+"]
+            },
+            "A+": {
+                "toanphan": ["O-", "O+", "A-", "A+"],
+                "hongcau": ["O-", "O+", "A-", "A+"],
+                "huyettuong": ["A+", "AB+"],
+                "tieucau": ["A+", "AB+"]
+            },
+            "B-": {
+                "toanphan": ["O-", "B-"],
+                "hongcau": ["O-", "B-"],
+                "huyettuong": ["B-", "B+", "AB-", "AB+"],
+                "tieucau": ["B-", "B+", "AB-", "AB+"]
+            },
+            "B+": {
+                "toanphan": ["O-", "O+", "B-", "B+"],
+                "hongcau": ["O-", "O+", "B-", "B+"],
+                "huyettuong": ["B+", "AB+"],
+                "tieucau": ["B+", "AB+"]
+            },
+            "AB-": {
+                "toanphan": ["O-", "A-", "B-", "AB-"],
+                "hongcau": ["O-", "A-", "B-", "AB-"],
+                "huyettuong": ["AB-", "AB+"],
+                "tieucau": ["AB-", "AB+"]
+            },
+            "AB+": {
+                "toanphan": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],
+                "hongcau": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],
+                "huyettuong": ["AB+"],
+                "tieucau": ["AB+"]
+            }
+        };
+
+        const bloodNames = ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"];
+
+        function showResult(bloodGroup, component) {
+            const resultDiv = document.getElementById('result');
+            if (!bloodGroup || !bloodCompatibility[bloodGroup]) {
+                resultDiv.innerHTML = "<span style='color:#e53935'>Vui lòng nhập đúng nhóm máu!</span>";
+                return;
+            }
+            const info = bloodCompatibility[bloodGroup];
+            let componentLabel = "";
+            switch(component) {
+                case "toanphan": componentLabel = "Truyền máu toàn phần"; break;
+                case "hongcau": componentLabel = "Truyền hồng cầu"; break;
+                case "huyettuong": componentLabel = "Truyền huyết tương"; break;
+                case "tieucau": componentLabel = "Truyền tiểu cầu"; break;
+            }
+            resultDiv.innerHTML = `
+                <div class="result-title">Nhóm máu của bạn: <span class="blood-group">${bloodGroup}</span></div>
+                <div class="result-title">${componentLabel}:</div>
+                ${info[component].map(bg => `<span class="blood-group">${bg}</span>`).join(' ')}
+            `;
+        }
+
+        // Tự động điền nhóm máu nếu có
+        window.onload = function() {
+            if (userBloodGroup && bloodNames.includes(userBloodGroup)) {
+                document.getElementById('bloodInput').value = userBloodGroup;
+                showResult(userBloodGroup, document.getElementById('componentSelect').value);
+            }
+        };
+
+        document.getElementById('searchBtn').onclick = function() {
+            const value = document.getElementById('bloodInput').value.trim().toUpperCase();
+            const component = document.getElementById('componentSelect').value;
+            showResult(value, component);
+        };
+
+        // Cho phép nhấn Enter để tra cứu
+        document.getElementById('bloodInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('searchBtn').click();
+            }
+        });
+
+        // Tự động cập nhật khi đổi loại thành phần
+        document.getElementById('componentSelect').addEventListener('change', function() {
+            const value = document.getElementById('bloodInput').value.trim().toUpperCase();
+            if (value) {
+                showResult(value, this.value);
+            }
+        });
+    </script>
+</body>
+</html>
