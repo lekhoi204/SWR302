@@ -65,16 +65,21 @@
             <i class="fas fa-home"></i> Home
         </a>
         <h2>Đăng ký</h2>
-        <form>
+        <form id="registerForm">
             <label for="fullname">Họ tên</label>
             <input id="fullname" type="text" required placeholder="Nhập họ tên" />
             <label for="email">Email</label>
             <input id="email" type="email" required placeholder="Nhập email" />
             <label for="password">Mật khẩu</label>
             <input id="password" type="password" required placeholder="Nhập mật khẩu" />
+            <!-- reCAPTCHA -->
+            <div style="margin: 18px 0;">
+                <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+            </div>
             <button type="submit">Đăng ký</button>
         </form>
         <a class="login-link" href="login.html">Đã có tài khoản? Đăng nhập</a>
     </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>

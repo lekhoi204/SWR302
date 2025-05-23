@@ -5,289 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lịch hẹn hiến máu - BloodLife</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #e53935;
-            --secondary-color: #ff6b6b;
-            --text-color: #333;
-            --light-bg: #f8f9fa;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-        .navbar {
-            background: var(--primary-color);
-            color: #fff;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .logo i {
-            color: #fff;
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-        .nav-button {
-            background: transparent;
-            color: #fff;
-            border: 2px solid #fff;
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .nav-button:hover, .nav-button.active {
-            background: #fff;
-            color: var(--primary-color);
-        }
-        .nav-button.primary {
-            background: #fff;
-            color: var(--primary-color);
-        }
-        .nav-button.primary:hover {
-            background: #f0f0f0;
-        }
-        .hero {
-            margin-top: 80px;
-            text-align: center;
-            padding: 60px 20px 30px 20px;
-            background: linear-gradient(rgba(229, 57, 53, 0.05), rgba(229, 57, 53, 0.1));
-        }
-        .hero h2 {
-            margin: 0 0 8px 0;
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        .hero .highlight {
-            color: var(--secondary-color);
-            font-weight: bold;
-        }
-        .hero-desc {
-            margin: 0 0 12px 0;
-            font-size: 1.1rem;
-        }
-        .search-section {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            max-width: 900px;
-            margin: 30px auto 0 auto;
-            padding: 24px 32px 16px 32px;
-            position: relative;
-            z-index: 2;
-        }
-        .search-row {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .search-row input[type="text"], .search-row input[type="date"] {
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-            flex: 1;
-        }
-        .search-row button {
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            border-radius: 25px;
-            padding: 10px 24px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .search-row button:hover {
-            background: var(--secondary-color);
-        }
-        .search-section .guide-link {
-            color: var(--primary-color);
-            text-decoration: underline;
-            font-size: 0.95rem;
-        }
-        .filter-bar {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 32px auto 0 auto;
-            max-width: 900px;
-        }
-        .filter-bar input[type="text"] {
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-            flex: 1;
-        }
-        .filter-bar button, .filter-bar select {
-            padding: 8px 16px;
-            border-radius: 25px;
-            border: 1px solid #ccc;
-            background: #fff;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .filter-bar button.active, .filter-bar button:hover {
-            background: var(--primary-color);
-            color: #fff;
-            border-color: var(--primary-color);
-        }
-        .results-section {
-            max-width: 900px;
-            margin: 24px auto 0 auto;
-        }
-        .results-header {
-            font-weight: bold;
-            margin-bottom: 16px;
-            font-size: 1.1rem;
-        }
-        .appointment-card {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-            padding: 24px 20px;
-            margin-bottom: 16px;
-        }
-        .appointment-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #fff;
-            border: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .appointment-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .appointment-info {
-            flex: 1;
-        }
-        .appointment-title {
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.05rem;
-            margin-bottom: 4px;
-        }
-        .appointment-address {
-            font-size: 0.98rem;
-            color: #444;
-            margin-bottom: 2px;
-        }
-        .appointment-time {
-            font-size: 0.95rem;
-            color: #666;
-        }
-        .appointment-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            min-width: 90px;
-            gap: 8px;
-        }
-        .appointment-registered {
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 1rem;
-            background: #ffeaea;
-            border-radius: 4px;
-            padding: 2px 8px;
-            text-align: right;
-        }
-        .appointment-btn {
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            border-radius: 25px;
-            padding: 8px 18px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .appointment-btn:hover {
-            background: var(--secondary-color);
-        }
-        @media (max-width: 700px) {
-            .nav-container, .search-section, .filter-bar, .results-section {
-                max-width: 100%;
-                padding-left: 8px;
-                padding-right: 8px;
-            }
-            .search-section, .filter-bar, .results-section {
-                margin-left: 0;
-                margin-right: 0;
-            }
-            .appointment-card {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .appointment-actions {
-                flex-direction: row;
-                align-items: center;
-                gap: 16px;
-                margin-top: 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
+                
+            <a href="index.html" class="logo">
                 <i class="fas fa-heart-pulse"></i>
                 <span>BloodLife</span>
+            </a>
+            
             </div>
             <div class="nav-links">
-                <a class="nav-button" href="index.html">Trang chủ</a>
-                <a class="nav-button" href="diemhienmau.html">Điểm hiến máu</a>
-                <a class="nav-button" href="tintuc.html">Tin tức</a>
-                <a class="nav-button active" href="appointments.html">Lịch hẹn</a>
-                <a class="nav-button primary" href="login.html">Đăng nhập</a>
-                <a class="nav-button" href="register.html">Đăng ký</a>
+
+            <a class="nav-button" href="diemhienmau.html">Điểm hiến máu</a>
+            <a class="nav-button" href="tracuunhommau.html">Tra cứu nhóm máu</a>
+            <a class="nav-button" href="khancap.html">Khẩn cấp</a>
+            <a class="nav-button" href="tintuc.html">Tin tức</a>
+            <a class="nav-button" href="appointments.html">Lịch hẹn</a>
+            <a class="nav-button primary" href="login.html">Đăng nhập</a>
+            <a class="nav-button" href="register.html">Đăng ký</a>
+
             </div>
         </div>
     </nav>
     <section class="hero">
-        <h2>Tham gia hiến máu <span class="highlight">KHẨN</span><br>Nhóm máu hiếm (Rh-)+</h2>
+        <h2>Tham gia hiến máu <span class="highlight"></span><br>Nhóm máu hiếm (Rh-)+</h2>
         <div class="hero-desc">
             Các ca cấp cứu và dự trữ trong dịp Tết<br>
             Tại số <b>106 Thích Phước, phường 9, Quận Tân Bình</b>
@@ -296,17 +41,6 @@
             Phụ vụ từ 07:00 đến 16:30 tất cả các ngày, ưu tiên người hiến máu nhóm hiếm/ người bệnh.
         </div>
     </section>
-    <div class="search-section">
-        <form>
-            <div class="search-row">
-                <input type="text" placeholder="Bạn cần đặt lịch vào thời gian nào?" style="flex:2" />
-                <button type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
-            </div>
-            <div style="margin-bottom:8px;">
-                <a class="guide-link" href="#">Xem hướng dẫn quy trình đăng ký hiến máu &gt;&gt;&gt; Tại đây</a>
-            </div>
-        </form>
-    </div>
     <div class="filter-bar">
         <input type="text" value="16/05/2025 - 30/06/2025" readonly style="max-width:220px;" />
         <button class="active">Gần tôi</button>
