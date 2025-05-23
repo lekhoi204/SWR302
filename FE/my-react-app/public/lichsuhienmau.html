@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lịch sử hiến máu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: #e53935;
+            padding: 10px 0;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(229,57,53,0.07);
+            min-height: 60px;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fff;
+            margin-right: 8px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 40px 32px;
+        }
+        h2 {
+            color: #e53935;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+        th, td {
+            border: 1px solid #e0e0e0;
+            padding: 12px 10px;
+            text-align: center;
+        }
+        th {
+            background: #e53935;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 32px;
+            color: #e53935;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heart-pulse"></i>
+                <span>BloodLife</span>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <h2><i class="fas fa-history"></i> Lịch sử hiến máu</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Ngày hiến máu</th>
+                    <th>Địa điểm</th>
+                    <th>Nhóm máu</th>
+                    <th>Số lượng (ml)</th>
+                    <th>Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>12/03/2024</td>
+                    <td>Bệnh viện Chợ Rẫy</td>
+                    <td>A+</td>
+                    <td>350</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>20/08/2023</td>
+                    <td>Trung tâm Hiến máu TP.HCM</td>
+                    <td>A+</td>
+                    <td>350</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>15/01/2023</td>
+                    <td>Bệnh viện Đại học Y Dược</td>
+                    <td>A+</td>
+                    <td>350</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+        <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Quay về trang chủ</a>
+    </div>
+</body>
+</html>
