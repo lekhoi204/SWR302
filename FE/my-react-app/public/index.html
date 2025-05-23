@@ -5,175 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ Thống Quản Lý Hiến Máu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #e53935;
-            --secondary-color: #ff6b6b;
-            --text-color: #333;
-            --light-bg: #f8f9fa;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        .navbar {
-            background: var(--primary-color);
-            color: #fff;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .logo i {
-            color: #fff;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-button {
-            background: transparent;
-            color: #fff;
-            border: 2px solid #fff;
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-button:hover {
-            background: #fff;
-            color: var(--primary-color);
-        }
-
-        .nav-button.primary {
-            background: #fff;
-            color: var(--primary-color);
-        }
-
-        .nav-button.primary:hover {
-            background: #f0f0f0;
-        }
-
-        .hero {
-            margin-top: 80px;
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(rgba(229, 57, 53, 0.05), rgba(229, 57, 53, 0.1));
-        }
-
-        .main-content {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-card i {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .cta-section {
-            background: var(--primary-color);
-            color: #fff;
-            text-align: center;
-            padding: 60px 20px;
-            margin-top: 60px;
-        }
-
-        .cta-button {
-            background: #fff;
-            color: var(--primary-color);
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .cta-button:hover {
-            background: #f0f0f0;
-            transform: scale(1.05);
-        }
-
-        footer {
-            background: #333;
-            color: #fff;
-            padding: 40px 20px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Simple include for header and footer
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('header.html').then(res => res.text()).then(data => {
+                document.getElementById('header-include').innerHTML = data;
+            });
+            fetch('footer.html').then(res => res.text()).then(data => {
+                document.getElementById('footer-include').innerHTML = data;
+            });
+        });
+    </script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-heart-pulse"></i>
-                <span>BloodLife</span>
-            </div>
-            <div class="nav-links">
-                <button class="nav-button">Trang chủ</button>
-                <a class="nav-button" href ="tracuunhommau.html">Tra cứu nhóm máu</a>
-                <a class="nav-button" href="khancap.html">Khẩn cấp</a>
-                <a class="nav-button" href="tintuc.html">Tin tức</a>
-                <a class="nav-button" href="appointments.html">Lịch hẹn</a>
-                <a class="nav-button primary" href="login.html">Đăng nhập</a>
-                <a class="nav-button" href="register.html">Đăng ký</a>
-            </div>
-        </div>
-    </nav>
+    <div id="header-include"></div>
 
     <section class="hero">
         <h1>Chung tay vì cộng đồng - Hiến máu cứu người</h1>
@@ -213,10 +59,7 @@
         </a>
     </section>
 
-    <footer>
-        <p>© 2024 BloodLife - Hệ thống quản lý hiến máu. Mọi quyền được bảo lưu.</p>
-    </footer>
-
+    <div id="footer-include"></div>
     <div id="root"></div>
 </body>
 </html>
