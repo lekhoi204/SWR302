@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - BloodLife</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             background: #f8f9fa;
@@ -58,12 +59,22 @@
             text-decoration: none;
         }
     </style>
+    <script>
+        // Simple include for header and footer
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('header.html').then(res => res.text()).then(data => {
+                document.getElementById('header-include').innerHTML = data;
+            });
+            fetch('footer.html').then(res => res.text()).then(data => {
+                document.getElementById('footer-include').innerHTML = data;
+            });
+        });
+    </script>
 </head>
 <body>
+    <div id="header-include"></div>
     <div class="login-container">
-        <a href="index.html" style="display:inline-block;margin-bottom:18px;color:#e53935;text-decoration:none;font-weight:bold;">
-            <i class="fas fa-home"></i> Home
-        </a>
+        
         <h2>Đăng nhập</h2>
         <form>
             <label for="email">Email</label>
@@ -74,5 +85,6 @@
         </form>
         <a class="register-link" href="register.html">Chưa có tài khoản? Đăng ký</a>
     </div>
+    <div id="footer-include"></div>
 </body>
 </html>

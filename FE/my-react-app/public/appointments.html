@@ -6,31 +6,19 @@
     <title>Lịch hẹn hiến máu - BloodLife</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('header.html').then(res => res.text()).then(data => {
+                document.getElementById('header-include').innerHTML = data;
+            });
+            fetch('footer.html').then(res => res.text()).then(data => {
+                document.getElementById('footer-include').innerHTML = data;
+            });
+        });
+    </script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                
-            <a href="index.html" class="logo">
-                <i class="fas fa-heart-pulse"></i>
-                <span>BloodLife</span>
-            </a>
-            
-            </div>
-            <div class="nav-links">
-
-            <a class="nav-button" href="diemhienmau.html">Điểm hiến máu</a>
-            <a class="nav-button" href="tracuunhommau.html">Tra cứu nhóm máu</a>
-            <a class="nav-button" href="khancap.html">Khẩn cấp</a>
-            <a class="nav-button" href="tintuc.html">Tin tức</a>
-            <a class="nav-button" href="appointments.html">Lịch hẹn</a>
-            <a class="nav-button primary" href="login.html">Đăng nhập</a>
-            <a class="nav-button" href="register.html">Đăng ký</a>
-
-            </div>
-        </div>
-    </nav>
+    <div id="header-include"></div>
     <section class="hero">
         <h2>Tham gia hiến máu <span class="highlight"></span><br>Nhóm máu hiếm (Rh-)+</h2>
         <div class="hero-desc">
@@ -99,5 +87,6 @@
             </div>
         </div>
     </div>
+    <div id="footer-include"></div>
 </body>
 </html>

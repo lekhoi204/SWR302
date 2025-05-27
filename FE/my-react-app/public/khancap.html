@@ -1,77 +1,169 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Ký Nhu Cầu Máu Khẩn Cấp</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header-include {
+            margin-bottom: 0;
+            padding-bottom: 32px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            flex: 1 0 auto;
+        }
+
         .form-container {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 700px;
+            margin: 32px auto 32px auto;
+            padding: 36px 32px 28px 32px;
+            box-shadow: 0 4px 24px rgba(229, 57, 53, 0.10), 0 1.5px 4px rgba(0, 0, 0, 0.06);
+            border-radius: 14px;
+            background: #fff;
+        }
+
+        .user-info {
+            background-color: #f8f9fa;
+            padding: 15px 18px;
             border-radius: 8px;
+            margin-bottom: 24px;
+            border-left: 4px solid #e53935;
         }
-        .header {
-            background-color: #dc3545;
-            color: white;
-            padding: 20px 0;
-            margin-bottom: 30px;
+
+        .form-title {
+            text-align: center;
+            color: #e53935;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
         }
+
+        .form-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 18px;
+        }
+
+        .form-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
         .required-field::after {
             content: "*";
             color: red;
             margin-left: 4px;
         }
-        .user-info {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+
+        input,
+        select,
+        textarea {
+            background: #f7f7f7;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            padding: 8px;
+            margin-bottom: 4px;
+            transition: border 0.2s;
         }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border: 1.5px solid #e53935;
+            outline: none;
+            background: #fff;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #e53935;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: white;
-            text-decoration: none;
-            margin-bottom: 15px;
+            letter-spacing: 1px;
+            margin-top: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(229, 57, 53, 0.08);
         }
-        .logo:hover {
-            color: #f8f9fa;
+
+        .submit-btn:hover {
+            background: #b71c1c;
         }
-        .logo i {
-            color: white;
+
+        #footer-include {
+            margin-top: auto;
+        }
+
+        @media (max-width: 700px) {
+            .form-container {
+                max-width: 98vw;
+                padding: 18px 6px 14px 6px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
         }
     </style>
+    <script>
+        // Simple include for header and footer
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('header.html').then(res => res.text()).then(data => {
+                document.getElementById('header-include').innerHTML = data;
+            });
+            fetch('footer.html').then(res => res.text()).then(data => {
+                document.getElementById('footer-include').innerHTML = data;
+            });
+        });
+    </script>
 </head>
-<body>
-    <div class="header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-heart-pulse"></i>
-                <span>BloodLife</span>
-            </a>
-            <h1 class="text-center">Đăng Ký Nhu Cầu Máu Khẩn Cấp</h1>
-        </div>
-    </div>
 
+<body>
+    <div id="header-include"></div>
     <div class="container">
         <div class="form-container">
-            <div class="user-info mb-4">
+            <h2 class="form-title">Đăng Ký Nhu Cầu Máu Khẩn Cấp</h2>
+            <div class="user-info">
                 <h5>Thông tin người yêu cầu</h5>
                 <p class="mb-0" id="loggedInUserName">Tên: <span>[Tên người dùng]</span></p>
             </div>
-
             <form id="emergencyBloodForm">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="bloodType" class="form-label required-field">Nhóm máu cần</label>
-                        <select class="form-select" id="bloodType" required>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="bloodType" class="required-field">Nhóm máu cần</label>
+                        <select id="bloodType" required>
                             <option value="">Chọn nhóm máu</option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
@@ -83,31 +175,29 @@
                             <option value="AB-">AB-</option>
                         </select>
                     </div>
-                    <div class="col-md-6">
-                        <label for="bloodAmount" class="form-label required-field">Số lượng máu cần (ml)</label>
-                        <input type="number" class="form-control" id="bloodAmount" required min="0">
+                    <div class="form-col">
+                        <label for="bloodAmount" class="required-field">Số lượng máu cần (ml)</label>
+                        <input type="number" id="bloodAmount" required min="0" placeholder="Nhập số ml">
                     </div>
                 </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="hospital" class="form-label required-field">Bệnh viện</label>
-                        <input type="text" class="form-control" id="hospital" required>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="hospital" class="required-field">Bệnh viện</label>
+                        <input type="text" id="hospital" required placeholder="Tên bệnh viện">
                     </div>
-                    <div class="col-md-6">
-                        <label for="department" class="form-label">Khoa/Phòng</label>
-                        <input type="text" class="form-control" id="department">
+                    <div class="form-col">
+                        <label for="department">Khoa/Phòng</label>
+                        <input type="text" id="department" placeholder="Khoa/Phòng (nếu có)">
                     </div>
                 </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="contactPhone" class="form-label required-field">Số điện thoại liên hệ</label>
-                        <input type="tel" class="form-control" id="contactPhone" required>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="contactPhone" class="required-field">Số điện thoại liên hệ</label>
+                        <input type="tel" id="contactPhone" required placeholder="Số điện thoại">
                     </div>
-                    <div class="col-md-6">
-                        <label for="urgencyLevel" class="form-label required-field">Mức độ khẩn cấp</label>
-                        <select class="form-select" id="urgencyLevel" required>
+                    <div class="form-col">
+                        <label for="urgencyLevel" class="required-field">Mức độ khẩn cấp</label>
+                        <select id="urgencyLevel" required>
                             <option value="">Chọn mức độ khẩn cấp</option>
                             <option value="critical">Rất khẩn cấp (Cần trong vòng 1-2 giờ)</option>
                             <option value="urgent">Khẩn cấp (Cần trong vòng 24 giờ)</option>
@@ -115,33 +205,31 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="additionalInfo" class="form-label">Thông tin thêm</label>
-                    <textarea class="form-control" id="additionalInfo" rows="3" placeholder="Nhập thêm thông tin cần thiết khác..."></textarea>
+                <div class="form-row">
+                    <div class="form-col" style="flex:2;">
+                        <label for="additionalInfo">Thông tin thêm</label>
+                        <textarea id="additionalInfo" rows="3" placeholder="Nhập thêm thông tin cần thiết khác..."></textarea>
+                    </div>
                 </div>
-
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-danger btn-lg">Gửi Yêu Cầu Khẩn Cấp</button>
-                </div>
+                <button type="submit" class="submit-btn">Gửi Yêu Cầu Khẩn Cấp</button>
             </form>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div id="footer-include"></div>
     <script>
         // Giả lập lấy thông tin người dùng đã đăng nhập
-        window.onload = function() {
+        window.onload = function () {
             // Đây là nơi sẽ lấy thông tin người dùng từ session/localStorage
             // Ví dụ: const userName = localStorage.getItem('userName');
             document.getElementById('loggedInUserName').querySelector('span').textContent = '[Tên người dùng đã đăng nhập]';
         }
 
-        document.getElementById('emergencyBloodForm').addEventListener('submit', function(e) {
+        document.getElementById('emergencyBloodForm').addEventListener('submit', function (e) {
             e.preventDefault();
             // Xử lý gửi form ở đây
             alert('Yêu cầu của bạn đã được ghi nhận. Chúng tôi sẽ liên hệ sớm nhất có thể!');
         });
     </script>
 </body>
+
 </html>
