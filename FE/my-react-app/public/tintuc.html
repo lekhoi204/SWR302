@@ -6,27 +6,19 @@
     <title>Tin Tức Hiến Máu - BloodLife</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('header.html').then(res => res.text()).then(data => {
+                document.getElementById('header-include').innerHTML = data;
+            });
+            fetch('footer.html').then(res => res.text()).then(data => {
+                document.getElementById('footer-include').innerHTML = data;
+            });
+        });
+    </script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            
-            <a href="index.html" class="logo">
-                <i class="fas fa-heart-pulse"></i>
-                <span>BloodLife</span>
-            </a>     
-        
-            <div class="nav-links">
-            <a class="nav-button" href="diemhienmau.html">Điểm hiến máu</a>
-            <a class="nav-button" href="tracuunhommau.html">Tra cứu nhóm máu</a>
-            <a class="nav-button" href="khancap.html">Khẩn cấp</a>
-            <a class="nav-button" href="tintuc.html">Tin tức</a>
-            <a class="nav-button" href="appointments.html">Lịch hẹn</a>
-            <a class="nav-button primary" href="login.html">Đăng nhập</a>
-            <a class="nav-button" href="register.html">Đăng ký</a>
-            </div>
-        </div>
-    </nav>
+    <div id="header-include"></div>
 
     <header class="header">
         <h1>Tin Tức & Bài Viết</h1>
@@ -223,9 +215,7 @@
         </div>
     </div>
 
-    <footer>
-        <p>© 2024 BloodLife - Hệ thống quản lý hiến máu. Mọi quyền được bảo lưu.</p>
-    </footer>
+    <div id="footer-include"></div>
 
     <script>
         // Xử lý chức năng lọc bài viết
