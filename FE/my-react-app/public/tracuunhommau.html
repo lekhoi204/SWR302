@@ -13,6 +13,9 @@
             background: #f8f9fa;
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         .navbar {
             background: var(--primary-color);
@@ -124,28 +127,23 @@
         a.back-link:hover {
             text-decoration: underline;
         }
+        #footer-include {
+            margin-top: auto;
+        }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('header.html').then(res => res.text()).then(data => {
+                document.getElementById('header-include').innerHTML = data;
+            });
+            fetch('footer.html').then(res => res.text()).then(data => {
+                document.getElementById('footer-include').innerHTML = data;
+            });
+        });
+    </script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-heart-pulse"></i>
-                <span>BloodLife</span>
-            </a>
-            <div class="nav-links">
-
-            <a class="nav-button" href="diemhienmau.html">Điểm hiến máu</a>
-            <a class="nav-button" href="tracuunhommau.html">Tra cứu nhóm máu</a>
-            <a class="nav-button" href="khancap.html">Khẩn cấp</a>
-            <a class="nav-button" href="tintuc.html">Tin tức</a>
-            <a class="nav-button" href="appointments.html">Lịch hẹn</a>
-            <a class="nav-button primary" href="login.html">Đăng nhập</a>
-            <a class="nav-button" href="register.html">Đăng ký</a>
-            </div>
-        </div>
-    </nav>
-
+    <div id="header-include"></div>
     <div class="container">
         <h2><i class="fas fa-search"></i> Tra cứu nhóm máu có thể truyền vào</h2>
         <div class="search-group">
@@ -171,6 +169,7 @@
         <div class="result" id="result"></div>
         <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Quay về trang chủ</a>
     </div>
+    <div id="footer-include"></div>
     <script>
         // Nếu đã đăng nhập, có thể lấy nhóm máu người dùng từ backend hoặc localStorage
         // Ví dụ: const userBloodGroup = "A+";
