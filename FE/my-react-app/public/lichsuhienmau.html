@@ -3,19 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lịch sử hiến máu</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script>
-        // Simple include for header and footer
-        document.addEventListener("DOMContentLoaded", function() {
-            fetch('header.html').then(res => res.text()).then(data => {
-                document.getElementById('header-include').innerHTML = data;
-            });
-            fetch('footer.html').then(res => res.text()).then(data => {
-                document.getElementById('footer-include').innerHTML = data;
-            });
-        });
-    </script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -94,7 +82,14 @@
     </style>
 </head>
 <body>
-    <div id="header-include"></div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heart-pulse"></i>
+                <span>BloodLife</span>
+            </a>
+        </div>
+    </nav>
     <div class="container">
         <h2><i class="fas fa-history"></i> Lịch sử hiến máu</h2>
         <table>
@@ -137,6 +132,5 @@
         </table>
         <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Quay về trang chủ</a>
     </div>
-    <div id="footer-include"></div>
 </body>
 </html>

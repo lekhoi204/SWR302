@@ -6,6 +6,16 @@
     <title>Lịch hẹn hiến máu - BloodLife</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #footer-include {
+            margin-top: auto;
+        }
+    </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             fetch('header.html').then(res => res.text()).then(data => {
@@ -53,7 +63,7 @@
             </div>
             <div class="appointment-actions">
                 <div class="appointment-registered">75/150 Người</div>
-                <a href="thongtindatlich.html" class="appointment-btn" style="text-align:center;display:inline-block;">Đặt lịch</a>
+                <button class="appointment-btn">Đặt lịch</button>
             </div>
         </div>
         <div class="appointment-card">
@@ -68,7 +78,7 @@
             </div>
             <div class="appointment-actions">
                 <div class="appointment-registered">113/150 Người</div>
-                <a href="thongtindatlich.html" class="appointment-btn" style="text-align:center;display:inline-block;">Đặt lịch</a>
+                <button class="appointment-btn">Đặt lịch</button>
             </div>
         </div>
         <div class="appointment-card">
@@ -83,7 +93,7 @@
             </div>
             <div class="appointment-actions">
                 <div class="appointment-registered">99/150 Người</div>
-                <a href="thongtindatlich.html" class="appointment-btn" style="text-align:center;display:inline-block;">Đặt lịch</a>
+                <button class="appointment-btn">Đặt lịch</button>
             </div>
         </div>
     </div>

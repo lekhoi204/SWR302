@@ -169,7 +169,7 @@
         <div class="result" id="result"></div>
         <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Quay về trang chủ</a>
     </div>
-    
+    <div id="footer-include"></div>
     <script>
         // Nếu đã đăng nhập, có thể lấy nhóm máu người dùng từ backend hoặc localStorage
         // Ví dụ: const userBloodGroup = "A+";
@@ -180,78 +180,53 @@
                 "toanphan": ["O-"],
                 "hongcau": ["O-"],
                 "huyettuong": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],
-                "tieucau": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],
-                "quantity": 0,
-                "status": "Hết"
+                "tieucau": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"]
             },
             "O+": {
                 "toanphan": ["O-", "O+"],
                 "hongcau": ["O-", "O+"],
                 "huyettuong": ["O+", "A+", "B+", "AB+"],
-                "tieucau": ["O+", "A+", "B+", "AB+"],
-                "quantity": 50,
-                "status": "Thiếu"
+                "tieucau": ["O+", "A+", "B+", "AB+"]
             },
             "A-": {
                 "toanphan": ["O-", "A-"],
                 "hongcau": ["O-", "A-"],
                 "huyettuong": ["A-", "A+", "AB-", "AB+"],
-                "tieucau": ["A-", "A+", "AB-", "AB+"],
-                "quantity": 100,
-                "status": "Đủ"
+                "tieucau": ["A-", "A+", "AB-", "AB+"]
             },
             "A+": {
                 "toanphan": ["O-", "O+", "A-", "A+"],
                 "hongcau": ["O-", "O+", "A-", "A+"],
                 "huyettuong": ["A+", "AB+"],
-                "tieucau": ["A+", "AB+"],
-                "quantity": 20,
-                "status": "Thiếu"
+                "tieucau": ["A+", "AB+"]
             },
             "B-": {
                 "toanphan": ["O-", "B-"],
                 "hongcau": ["O-", "B-"],
                 "huyettuong": ["B-", "B+", "AB-", "AB+"],
-                "tieucau": ["B-", "B+", "AB-", "AB+"],
-                "quantity": 0,
-                "status": "Hết"
+                "tieucau": ["B-", "B+", "AB-", "AB+"]
             },
             "B+": {
                 "toanphan": ["O-", "O+", "B-", "B+"],
                 "hongcau": ["O-", "O+", "B-", "B+"],
                 "huyettuong": ["B+", "AB+"],
-                "tieucau": ["B+", "AB+"],
-                "quantity": 150,
-                "status": "Đủ"
+                "tieucau": ["B+", "AB+"]
             },
             "AB-": {
                 "toanphan": ["O-", "A-", "B-", "AB-"],
                 "hongcau": ["O-", "A-", "B-", "AB-"],
                 "huyettuong": ["AB-", "AB+"],
-                "tieucau": ["AB-", "AB+"],
-                "quantity": 10,
-                "status": "Thiếu"
+                "tieucau": ["AB-", "AB+"]
             },
             "AB+": {
                 "toanphan": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],
                 "hongcau": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],
                 "huyettuong": ["AB+"],
-                "tieucau": ["AB+"],
-                "quantity": 80,
-                "status": "Đủ"
+                "tieucau": ["AB+"]
             }
         };
 
         const bloodNames = ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"];
-
-        function getStatusColor(status) {
-            switch(status) {
-                case "Đủ": return "#4CAF50";
-                case "Thiếu": return "#FFA726";
-                case "Hết": return "#e53935";
-                default: return "#000000";
-            }
-        }
 
         function showResult(bloodGroup, component) {
             const resultDiv = document.getElementById('result');
@@ -267,27 +242,10 @@
                 case "huyettuong": componentLabel = "Truyền huyết tương"; break;
                 case "tieucau": componentLabel = "Truyền tiểu cầu"; break;
             }
-
-            const statusColor = getStatusColor(info.status);
-            
             resultDiv.innerHTML = `
                 <div class="result-title">Nhóm máu của bạn: <span class="blood-group">${bloodGroup}</span></div>
                 <div class="result-title">${componentLabel}:</div>
                 ${info[component].map(bg => `<span class="blood-group">${bg}</span>`).join(' ')}
-                <div class="result-title" style="margin-top: 20px;">Tình trạng kho máu:</div>
-                <div style="margin: 10px 0;">
-                    <span style="color: ${statusColor}; font-weight: bold;">
-                        ${info.status} (${info.quantity} đơn vị)
-                    </span>
-                </div>
-                ${info.status !== "Đủ" ? `
-                <div style="margin-top: 15px;">
-                    <p style="color: #e53935;">Nhóm máu ${bloodGroup} đang ${info.status.toLowerCase()}. Nếu cần gấp, vui lòng sử dụng tính năng yêu cầu khẩn cấp.</p>
-                    <button onclick="window.location.href='khancap.html'" class="nav-button primary" style="background: #e53935; color: white; border: none; margin-top: 10px;">
-                        <i class="fas fa-exclamation-circle"></i> Yêu cầu khẩn cấp
-                    </button>
-                </div>
-                ` : ''}
             `;
         }
 
@@ -320,6 +278,5 @@
             }
         });
     </script>
-    <div id="footer-include"></div>
 </body>
 </html>
