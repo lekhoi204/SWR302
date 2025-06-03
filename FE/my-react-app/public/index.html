@@ -6,6 +6,178 @@
     <title>Hệ Thống Quản Lý Hiến Máu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* AI Chatbot Styles */
+        #chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #chat-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+            animation: pulse 2s infinite;
+        }
+
+        #chat-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+            50% { box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4); }
+            100% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+        }
+
+        #chat-window {
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        #chat-header {
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #chat-header h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        #close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        #close-chat:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .bot-message, .user-message {
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-message p {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 18px 18px 18px 4px;
+            margin: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            line-height: 1.4;
+        }
+
+        .user-message p {
+            background: #dc3545;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 18px 18px 4px 18px;
+            margin: 0 0 0 auto;
+            max-width: 80%;
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        #chat-input-container {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        #chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        #chat-input:focus {
+            border-color: #dc3545;
+        }
+
+        #send-button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        #send-button:hover {
+            background: #c0392b;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            #chat-window {
+                width: 300px;
+                height: 400px;
+            }
+            
+            #chatbot-container {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
     <script>
         // Simple include for header and footer
         document.addEventListener("DOMContentLoaded", function() {
@@ -76,6 +248,108 @@
 
 
     <div id="footer-include"></div>
+    
+    <!-- AI Chatbot -->
+    <div id="chatbot-container">
+        <div id="chat-button" onclick="toggleChat()">
+            <i class="fas fa-robot"></i>
+            <span>AI Tư vấn</span>
+        </div>
+        
+        <div id="chat-window" style="display: none;">
+            <div id="chat-header">
+                <h4><i class="fas fa-robot"></i> AI Tư vấn Hiến Máu</h4>
+                <button id="close-chat" onclick="toggleChat()">×</button>
+            </div>
+            <div id="chat-messages">
+                <div class="bot-message">
+                    <p>Xin chào! Tôi là AI tư vấn hiến máu. Bạn có thắc mắc gì về hiến máu không?</p>
+                </div>
+            </div>
+            <div id="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Nhập câu hỏi của bạn..." onkeypress="handleEnter(event)">
+                <button id="send-button" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleChat() {
+            const chatWindow = document.getElementById('chat-window');
+            const chatButton = document.getElementById('chat-button');
+            
+            if (chatWindow.style.display === 'none') {
+                chatWindow.style.display = 'block';
+                chatButton.style.display = 'none';
+            } else {
+                chatWindow.style.display = 'none';
+                chatButton.style.display = 'flex';
+            }
+        }
+        
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                addMessage(message, 'user');
+                input.value = '';
+                
+                // Simulate AI response
+                setTimeout(() => {
+                    const response = getAIResponse(message);
+                    addMessage(response, 'bot');
+                }, 1000);
+            }
+        }
+        
+        function addMessage(message, sender) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = sender + '-message';
+            messageDiv.innerHTML = '<p>' + message + '</p>';
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function getAIResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            if (lowerMessage.includes('hiến máu') || lowerMessage.includes('hiến') || lowerMessage.includes('máu')) {
+                if (lowerMessage.includes('điều kiện') || lowerMessage.includes('yêu cầu')) {
+                    return 'Để hiến máu, bạn cần: tuổi từ 18-60, cân nặng ít nhất 45kg, sức khỏe tốt, không mắc các bệnh truyền nhiễm. Bạn cần mang theo CMND/CCCD khi đến hiến máu.';
+                } else if (lowerMessage.includes('lợi ích') || lowerMessage.includes('tác dụng')) {
+                    return 'Hiến máu giúp: kích thích tạo máu mới, kiểm tra sức khỏe miễn phí, giảm nguy cơ bệnh tim mạch, và quan trọng nhất là cứu sống người khác.';
+                } else if (lowerMessage.includes('bao lâu') || lowerMessage.includes('thời gian')) {
+                    return 'Bạn có thể hiến máu 3-4 tháng/lần. Quá trình hiến máu chỉ mất khoảng 10-15 phút.';
+                } else if (lowerMessage.includes('đau') || lowerMessage.includes('có đau không')) {
+                    return 'Hiến máu chỉ có cảm giác châm kim nhẹ ban đầu, sau đó không đau. Quy trình hoàn toàn an toàn với dụng cụ vô trùng.';
+                } else {
+                    return 'Hiến máu là hành động cao đẹp cứu người. Bạn có thể tìm điểm hiến máu gần nhất hoặc đặt lịch trực tuyến trên website này. Bạn cần hỗ trợ gì thêm?';
+                }
+            } else if (lowerMessage.includes('địa điểm') || lowerMessage.includes('ở đâu') || lowerMessage.includes('chỗ nào')) {
+                return 'Bạn có thể tìm điểm hiến máu gần nhất bằng cách click vào "Tìm điểm hiến máu" trên trang chủ. Hệ thống sẽ hiển thị bản đồ các điểm hiến máu xung quanh bạn.';
+            } else if (lowerMessage.includes('đăng ký') || lowerMessage.includes('đặt lịch')) {
+                return 'Để đặt lịch hiến máu, bạn click vào "Đặt lịch hiến máu" trên trang chủ. Bạn có thể chọn thời gian và địa điểm phù hợp.';
+            } else if (lowerMessage.includes('lịch sử') || lowerMessage.includes('theo dõi')) {
+                return 'Bạn có thể xem lịch sử hiến máu trong mục "Lịch sử hiến máu". Tại đây bạn sẽ thấy các lần hiến máu trước và lịch hiến máu tiếp theo.';
+            } else if (lowerMessage.includes('xin chào') || lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+                return 'Xin chào! Tôi có thể giúp bạn tìm hiểu về hiến máu, điều kiện hiến máu, lợi ích, và cách đăng ký. Bạn muốn biết điều gì?';
+            } else {
+                return 'Tôi có thể giúp bạn về các vấn đề liên quan đến hiến máu như: điều kiện hiến máu, lợi ích, cách đăng ký, tìm điểm hiến máu. Bạn có câu hỏi cụ thể nào không?';
+            }
+        }
+    </script>
+
     <div id="root"></div>
 </body>
 </html>
