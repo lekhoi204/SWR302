@@ -77,8 +77,8 @@
         
         <h2>Đăng nhập</h2>
         <form>
-            <label for="email">Email</label>
-            <input id="email" type="email" required placeholder="Nhập email" />
+            <label for="username">Tên đăng nhập</label>
+            <input id="username" type="text" required placeholder="Nhập tên đăng nhập" />
             <label for="password">Mật khẩu</label>
             <input id="password" type="password" required placeholder="Nhập mật khẩu" />
             <button type="submit">Đăng nhập</button>
@@ -86,5 +86,36 @@
         <a class="register-link" href="register.html">Chưa có tài khoản? Đăng ký</a>
     </div>
     <div id="footer-include"></div>
+    <script>
+document.querySelector('.login-container form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+
+    try {
+        const res = await fetch('https://localhost:7226/api/User/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            // Lưu trạng thái đăng nhập (ví dụ: localStorage)
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('username', username);
+            alert('Đăng nhập thành công!');
+            window.location.href = 'index.html';
+        } else {
+            const err = await res.text();
+            alert('Đăng nhập thất bại: ' + err);
+        }
+    } catch (error) {
+        alert('Lỗi kết nối đến server!');
+    }
+});
+</script>
 </body>
 </html>
